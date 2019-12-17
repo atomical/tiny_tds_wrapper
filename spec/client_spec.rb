@@ -16,7 +16,7 @@ RSpec.describe TinyTdsWrapper::Client do
       wrapper.execute("select")
     end
 
-    it "opens a connection when method called" do
+    it "opens a connection when called" do
       allow(TinyTds::Client).to receive(:new).and_return client
 
       expect(wrapper).to receive(:connect!).and_call_original
@@ -25,12 +25,16 @@ RSpec.describe TinyTdsWrapper::Client do
   end
 
   describe "connect!" do
-
+    it "does not disconnect if the connection is active" do
+      allow(TinyTds::Client).to receive(:new).and_return client
+      allow(client).to receive(:active?).and_return true
+      expect(wrapper).not_to receive(:disconnect!)
+      wrapper.send(:connect!)
+    end
   end
 
   describe "disconnect!" do
     it "closes the connection" do
-
       allow(TinyTds::Client).to receive(:new).and_return client
       allow(client).to receive(:execute).and_raise(TinyTds::Error.new("Unknown Error"))
       expect(wrapper).to receive(:disconnect!).once
