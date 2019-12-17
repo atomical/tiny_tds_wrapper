@@ -1,9 +1,13 @@
+require 'tiny_tds'
+
 module TinyTdsWrapper
   class Client
     def initialize(config)
       @config = config
       @client = nil
     end
+
+    private
 
     def method_missing(method_name, *args, &block)
       connect!
@@ -16,7 +20,7 @@ module TinyTdsWrapper
     end
 
     def connect!
-      disconnect! unless active?
+      disconnect! if active?
       @client ||= TinyTds::Client.new(@config)
     end
 
