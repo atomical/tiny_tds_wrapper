@@ -11,4 +11,14 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  class TinyTdsFaker
+    attr_accessor :options
+
+    def execute(sql); end
+    def escape(str); end
+    def close; end
+  end
 end
+
+
