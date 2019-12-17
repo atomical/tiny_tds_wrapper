@@ -1,4 +1,7 @@
 require "bundler/setup"
+require "simplecov"
+SimpleCov.start
+
 require "tiny_tds_wrapper"
 
 RSpec.configure do |config|
