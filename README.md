@@ -1,6 +1,6 @@
 # TinyTdsWrapper
 
-TinyTds is not thread-safe when used with connection pooling in a multi-threaded environment. This client wrapper manages the connection reconnects when an error is raised by TinyTds.
+This wrapper manages connection health. It will reconnnect automatically when TinyTds throws an error. It can be used with connection pooling gems.
 
 ## Installation
 
