@@ -30,7 +30,7 @@ module TinyTdsWrapper
     end
 
     def active?
-      @client && @client.active?
+      !!(@client && @client.active?)
     end
   end
 end

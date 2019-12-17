@@ -42,4 +42,21 @@ RSpec.describe TinyTdsWrapper::Client do
       wrapper.execute("select") rescue TinyTds::Error
     end
   end
+
+  describe "active?" do
+    it "returns true when active" do
+      allow(TinyTds::Client).to receive(:new).and_return client
+      allow(client).to receive(:active?).and_return true
+
+      wrapper.send(:connect!)
+      expect(wrapper.send(:active?)).to be true
+    end
+
+    it "returns false when not active" do
+      allow(TinyTds::Client).to receive(:new).and_return client
+      allow(client).to receive(:active?).and_return false
+      wrapper.send(:connect!)
+      expect(wrapper.send(:active?)).to be false
+    end
+  end
 end
